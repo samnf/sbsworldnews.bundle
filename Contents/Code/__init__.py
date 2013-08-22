@@ -36,14 +36,16 @@ def Lvl2(sender, key, content):
         for genre in show['genres']:
             if genre == key:
                 temp = re.sub(' ','-',show['programName'])
-                url=BASE_URL+show['ID']+'/'+re.sub('-+','-',temp)
-                Log('For show '+ show['name'] + ' adding URL: ' + url)
+                #url=BASE_URL+show['ID']+'/'+re.sub('-+','-',temp)
+                url=show['url']
+				Log('For show '+ show['name'] + ' adding URL: ' + url)
                 dir.Append(WebVideoItem(url, title=show['name'], subtitle='runtime: '+ str(int(show['duration']/60)) +' mins.', thumb=show['thumbnailURL'], summary=show['description']))
         for channel in show['channels']:
             if channel == key:
                 temp = re.sub(' ','-',show['programName'])
-                url=BASE_URL+show['ID']+'/'+re.sub('-+','-',temp)
-                Log('For show '+ show['name'] + ' adding URL: ' + url)
+                #url=BASE_URL+show['ID']+'/'+re.sub('-+','-',temp)
+                url=show['url']
+				Log('For show '+ show['name'] + ' adding URL: ' + url)
                 try:
                     dir.Append(WebVideoItem(url, title=show['name'], subtitle='runtime: '+ str(int(show['duration']/60)) +' mins.', thumb=show['thumbnailURL'], summary=show['description']))
                 except:
@@ -92,7 +94,13 @@ def GetContent():
                 Log("skipping category")
         show['genres'] = genres
         show['channels'] = channels
-        show['duration'] = entry['media$content'][0]['plfile$duration']
+		for k in entry['media$content']: 
+			try: 
+				if k['plfile$bitrate'] == 1500000:
+					show['duration'] = k['plfile$duration']
+					show['url'] = k['plfile$downloadUrl']
+			except: 
+				Log("No 1.5K bitrate found")
         try:
             show['rating'] = entry['media$ratings'][0]['rating']
         except:
