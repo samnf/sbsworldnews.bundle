@@ -24,6 +24,8 @@ def VideoMainMenu():
     dir = MediaContainer(viewGroup="InfoList")
     content = GetContent()
     #Log("Content>>" + content)
+    for episode in content
+        dir.Append(WebVideoItem(episode['url'], title=episode['name'], subtitle='runtime: '+ str(int(episode['duration']/60)) +' mins.', thumb=episode['thumbnailURL'], summary=episode['description']))
     return dir
 
 def GetContent():
@@ -46,6 +48,5 @@ def GetContent():
         episode['name'] = entry['title']
         episode['description'] = entry['description']
         episode['thumbnailURL'] = entry['plmedia$defaultThumbnailUrl']
-        dir.Append(WebVideoItem(episode['url'], title=episode['name'], subtitle='runtime: '+ str(int(episode['duration']/60)) +' mins.', thumb=episode['thumbnailURL'], summary=episode['description']))
     content.append(episode)
     return content    
