@@ -2,13 +2,12 @@
 import re
 ####################################################################################################
 
-VIDEO_PREFIX = "/video/sbs"
+VIDEO_PREFIX = "/video/sbsworldnews"
 NAME = L('Title')
 DEFAULT_CACHE_INTERVAL = 1800
 OTHER_CACHE_INTERVAL = 300
 ART           = 'art-default.png'
 ICON          = 'icon-default.png'
-BASE_URL = "http://www.sbs.com.au/ondemand/video/"
 
 ####################################################################################################
 
