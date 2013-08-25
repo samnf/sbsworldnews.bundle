@@ -30,7 +30,6 @@ def VideoMainMenu():
 
 def GetContent():
     x = JSON.ObjectFromURL("http://www.sbs.com.au/api/video_feed/f/dYtmxB/section-programs?form=json&q=world%20news%20australia")
-    content = []
     for entry in x['entries'] :
         episode = {}
         Log("Found episode" + entry['title'])
@@ -48,5 +47,4 @@ def GetContent():
         episode['name'] = entry['title']
         episode['description'] = entry['description']
         episode['thumbnailURL'] = entry['plmedia$defaultThumbnailUrl']
-    content.append(episode)
-    return content    
+    return episode    
