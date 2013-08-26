@@ -22,7 +22,7 @@ def Start():
 def VideoMainMenu():
     dir = MediaContainer(viewGroup="InfoList")
     episodes = GetContent()
-    #Log("Content>>" + content)
+    Log("Episodes found >> " + episodes)
     for episode in episodes : 
         dir.Append(WebVideoItem(episode['url'], title=episode['name'], subtitle='runtime: '+ str(int(episode['duration']/60)) +' mins.', thumb=episode['thumbnailURL'], summary=episode['description']))
     return dir
