@@ -33,13 +33,15 @@ def GetContent():
     for entry in x['entries'] :
         episode = {}
         Log("Found episode" + entry['title'])
+        maxBitrate = 0
         for k in entry['media$content']: 
             try: 
-                if k['plfile$bitrate'] == 1500000:
+                if k['plfile$bitrate'] > maxBitrate:
                     episode['duration'] = k['plfile$duration']
                     episode['url'] = k['plfile$downloadUrl']
+                    maxBitrate = k['plfile$bitrate']
             except: 
-                Log("No 1.5K bitrate found")
+                Log("No content found")
         try:
             episode['rating'] = entry['media$ratings'][0]['rating']
         except:
