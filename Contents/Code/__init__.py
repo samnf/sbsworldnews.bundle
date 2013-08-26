@@ -21,14 +21,15 @@ def Start():
 
 def VideoMainMenu():
     dir = MediaContainer(viewGroup="InfoList")
-    content = GetContent()
+    episodes = GetContent()
     #Log("Content>>" + content)
-    for episode in content : 
+    for episode in episodes : 
         dir.Append(WebVideoItem(episode['url'], title=episode['name'], subtitle='runtime: '+ str(int(episode['duration']/60)) +' mins.', thumb=episode['thumbnailURL'], summary=episode['description']))
     return dir
 
 def GetContent():
     x = JSON.ObjectFromURL("http://www.sbs.com.au/api/video_feed/f/dYtmxB/section-programs?form=json&q=world%20news%20australia")
+    episodes = []
     for entry in x['entries'] :
         episode = {}
         Log("Found episode" + entry['title'])
@@ -46,4 +47,5 @@ def GetContent():
         episode['name'] = entry['title']
         episode['description'] = entry['description']
         episode['thumbnailURL'] = entry['plmedia$defaultThumbnailUrl']
-    return episode    
+        episodes.append(episode)
+    return episodes
