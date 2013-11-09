@@ -25,7 +25,7 @@ def VideoMainMenu():
     for episode in episodes : 
         if len(episode['url']) > 0: 
 			Log("Episode found >> " + episode['url'])
-			dir.Append(VideoClipObject(url=episode['url'], title=episode['name'], thumb=episode['thumbnailURL'], summary=episode['description']))
+			dir.add(VideoClipObject(url=episode['url'], title=episode['name'], thumb=episode['thumbnailURL'], summary=episode['description']))
     return dir
 
 def GetContent():
