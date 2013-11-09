@@ -14,18 +14,18 @@ ICON          = 'icon-default.png'
 def Start():    
     Plugin.AddPrefixHandler(VIDEO_PREFIX, VideoMainMenu, L('VideoTitle'), ICON, ART)
     Plugin.AddViewGroup("InfoList", viewMode="InfoList", mediaType="items")
-    MediaContainer.art = R(ART)
-    MediaContainer.title1 = NAME
-    DirectoryItem.thumb = R(ICON)
+    ObjectContainer.art = R(ART)
+    ObjectContainer.title1 = NAME
+    DirectoryObject.thumb = R(ICON)
     #HTTP.SetCacheTime(DEFAULT_CACHE_INTERVAL)
 
 def VideoMainMenu():
-    dir = MediaContainer(viewGroup="InfoList")
+    dir = ObjectContainer(viewGroup="InfoList")
     episodes = GetContent()
     for episode in episodes : 
         if len(episode['url']) > 0: 
 			Log("Episode found >> " + episode['url'])
-			dir.Append(DirectoryItem(episode['url'], title=episode['name'], subtitle='runtime: '+ str(int(episode['duration']/60)) +' mins.', thumb=episode['thumbnailURL'], summary=episode['description']))
+			dir.Append(VideoClipObject(url=episode['url'], title=episode['name'], thumb=episode['thumbnailURL'], summary=episode['description']))
     return dir
 
 def GetContent():
