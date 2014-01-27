@@ -1,5 +1,6 @@
 # PMS plugin framework
 import re
+import datetime
 ####################################################################################################
 
 VIDEO_PREFIX = "/video/sbsworldnews"
@@ -47,6 +48,11 @@ def GetContent():
             episode['rating'] = entry['media$ratings'][0]['rating']
         except:
             Log("Couldn't get rating")
+        if episode['url'] is None:
+            episodedateUnix = int(entry['media$availableDate'][:9])
+            dateurl = datetime.datetime.fromtimestamp(episodedateUnix).strftime('%Y/%m/%d/') + datetime.datetime.fromtimestamp(episodedateUnix).strftime('%Y-%m-%d_')
+            episode['url'] = "http://videocdn.sbs.com.au/u/video/SBS_Production/managed/" + dateurl + entry['pl1$pilatId'] + "_1500K.mp4"
+            Log("Built url " + episode['url'])
         episode['name'] = entry['title']
         episode['description'] = entry['description']
         episode['thumbnailURL'] = entry['plmedia$defaultThumbnailUrl']
